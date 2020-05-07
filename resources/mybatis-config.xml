@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <!-- load environment variables as properties -->
+	<properties resource="mybatis.properties" />
+	
+	<settings>
+		<setting name="cacheEnabled" value="false"/>
+
+        <!-- http://mybatis.github.io/mybatis-3/logging.html -->
+        <!-- <setting name="logImpl" value="SLF4J" /> -->
+
+	</settings>
+		
+	<typeAliases>
+		<typeAlias alias="Cat" 		type="at.mikemitterer.catshostel.model.Cat" />
+        <!-- zum testen
+        <typeAlias alias="NameTO" 		type="at.mikemitterer.webapp.model.to.NameTO" />
+        -->
+	</typeAliases>
+
+	<environments default="${default.environment}">
+		<environment id="test">
+			<transactionManager type="JDBC"/>
+			<dataSource type="POOLED">
+				<!-- test.docroot wird in BusinessLogicModule gesetzt -->
+				<property name="driver" 	value="${test.driver}"/>
+				<property name="url" 		value="${test.url.firstpart}${test.docroot}/${test.db}"/>
+			</dataSource>
+		</environment>	
+		<environment id="development">
+			<transactionManager type="JDBC"/>
+
+            <!-- Am 160712 auf UNPOOLED umgestellt - da Postgres sonst immer crashed -->
+			<dataSource type="UNPOOLED">
+				<property name="driver" 	value="${development.driver}"/>
+				<property name="url" 		value="${development.scheme}://${development.hostname}:${development.port}/${development.dbname}"/>
+				<property name="username" 	value="${development.username}"/>
+				<property name="password" 	value="${development.password}"/>
+			</dataSource>
+		</environment>
+		<environment id="live">
+			<transactionManager type="JDBC"/>
+			<dataSource type="POOLED">
+				<property name="driver" 	value="${live.driver}"/>
+				<property name="url" 		value="${live.url}"/>
+				<property name="username" 	value="${live.username}"/>
+				<property name="password" 	value="${live.password}"/>
+			</dataSource>
+		</environment>
+	</environments>
+
+    <!-- http://mybatis.github.io/mybatis-3/dynamic-sql.html#Multi-db_vendor_support -->
+    <databaseIdProvider type="VENDOR">
+        <property name="MySQL" value="mysql" />
+        <property name="SQLite" value="sqlite" />
+        <property name="PostgreSQL" value="postgres" />
+    </databaseIdProvider>
+
+	<mappers>
+		<mapper class="at.mikemitterer.catshostel.persistence.mapper.CatsMapper"/>
+
+        <!--
+        <mapper url="file:///Volumes/Daten/DevLocal/DevJava/WebApp.Base/src/main/java/at/mikemitterer/webapp/persistance/iface/UserMapper.xml"/>
+        <mapper url="file:///Volumes/Daten/DevLocal/DevJava/WebApp.Base/src/main/java/at/mikemitterer/webapp/persistance/iface/RoleMapper.xml"/>
+        <mapper url="file:///Volumes/Daten/DevLocal/DevJava/WebApp.Base/src/main/java/at/mikemitterer/webapp/persistance/iface/UserRolesMapper.xml"/>
+        <mapper url="file:///Volumes/Daten/DevLocal/DevJava/WebApp.Base/src/main/java/at/mikemitterer/webapp/persistance/iface/ApiKeyMapper.xml"/>
+        <mapper url="file:///Volumes/Daten/DevLocal/DevJava/WebApp.Base/src/main/java/at/mikemitterer/webapp/persistance/iface/TicketMapper.xml"/>
+
+        <mapper url="file:///Volumes/Daten/DevLocal/DevJava/WebApp.Base/src/main/java/at/mikemitterer/webapp/persistance/iface/NameMapper.xml"/>
+        -->
+    </mappers>
+	
+</configuration>
+
