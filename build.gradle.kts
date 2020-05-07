@@ -13,6 +13,9 @@ val mybatis_version: String by project
 val sqlite_version: String by project
 val postgres_version: String by project
 
+val gson_version: String by project
+val coroutines_test_version: String by project
+
 
 plugins {
 	id("org.springframework.boot") version "2.3.0.RC1"
@@ -46,6 +49,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-freemarker")
 	implementation("org.springframework.boot:spring-boot-starter-websocket")
+	implementation("org.springframework.boot:spring-boot-starter-websocket")
 
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
@@ -71,6 +75,7 @@ dependencies {
     // Sonstiges -------------------------------------------------------------------------------------------------------
     implementation( "joda-time:joda-time:$joda_version")
     implementation("org.apache.commons:commons-lang3:$commons_lang_version")
+    implementation("com.google.code.gson:gson:$gson_version")
 
     // Test ============================================================================================================
 
@@ -78,6 +83,7 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
 	}
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_test_version")
 }
 
 tasks.withType<Test> {

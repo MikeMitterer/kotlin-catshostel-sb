@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.ResponseStatus
 /**
  * Universelles Exception-Mapping
  *
+ * Mit @ControllerAdvice wird dieser Teil bei
+ * jedem Controller eingefügt
+ *
  * @since   06.05.20, 16:05
  */
 @ControllerAdvice
