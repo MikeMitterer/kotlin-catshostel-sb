@@ -15,6 +15,8 @@ val postgres_version: String by project
 
 val gson_version: String by project
 val coroutines_test_version: String by project
+val auth0_version: String by project
+val jwks_version: String by project
 
 
 plugins {
@@ -49,7 +51,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-freemarker")
 	implementation("org.springframework.boot:spring-boot-starter-websocket")
-	implementation("org.springframework.boot:spring-boot-starter-websocket")
+	implementation("org.springframework.boot:spring-boot-starter-security")
 
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
@@ -84,6 +86,10 @@ dependencies {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
 	}
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_test_version")
+
+    // JWT (auth0 testing)
+    testImplementation("com.auth0:java-jwt:$auth0_version")
+    testImplementation("com.auth0:jwks-rsa:$jwks_version")
 }
 
 tasks.withType<Test> {

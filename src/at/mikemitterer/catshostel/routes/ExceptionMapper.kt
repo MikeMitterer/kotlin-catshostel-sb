@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus
  * @since   06.05.20, 16:05
  */
 @ControllerAdvice
-class ExceptionMapping {
+class ExceptionMapper {
 
     @ResponseBody // Wandelt die Message in einen JSON-String um
     @ExceptionHandler
