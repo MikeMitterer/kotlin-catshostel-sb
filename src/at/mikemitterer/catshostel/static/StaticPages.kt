@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView
  */
 @Controller
 class StaticPages {
-    @GetMapping("/static")
+    @GetMapping("/")
     fun getIndexPage(): ModelAndView {
         return ModelAndView("index", "data", IndexData(listOf(1,2,3,4,5)))
     }

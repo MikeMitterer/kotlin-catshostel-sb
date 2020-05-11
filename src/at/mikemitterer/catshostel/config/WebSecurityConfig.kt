@@ -22,23 +22,29 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
     @Throws(Exception::class)
     override fun configure(httpSecurity: HttpSecurity) {
         // We don't need CSRF for this example
-        httpSecurity.csrf().disable()
+        // .csrf().disable()
+        // httpSecurity
+        //         // dont authenticate this particular request
+        //         .authorizeRequests()
+        //
+        //         // deny protected
+        //         .antMatchers("/protected/**").authenticated()
+        //
+        //         // allow all others
+        //         .antMatchers("/**").permitAll().anyRequest()
+        //
+        //         .authenticated()
+        //
+        //         .and().cors()
+        //
+        //         // make sure we use stateless session; session won't be used to
+        //         // store user's state.
+        //         .and().exceptionHandling()
+
+        httpSecurity
                 // dont authenticate this particular request
-                .authorizeRequests()
-                
-                // deny protected
-                .antMatchers("/protected/**").authenticated()
+                .authorizeRequests().anyRequest().permitAll()
 
-                // allow all others
-                .antMatchers("/**").permitAll().anyRequest()
-
-                .authenticated()
-                
-                .and().cors()
-
-                // make sure we use stateless session; session won't be used to
-                // store user's state.
-                .and().exceptionHandling()
 
                 //
                 // .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

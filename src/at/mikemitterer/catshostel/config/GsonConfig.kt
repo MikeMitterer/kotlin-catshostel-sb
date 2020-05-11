@@ -1,11 +1,13 @@
 package at.mikemitterer.catshostel.config
 
+import at.mikemitterer.catshostel.gson.SpringfoxJsonToGsonAdapter
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.converter.json.GsonHttpMessageConverter
+import springfox.documentation.spring.web.json.Json
 
 /**
  *
@@ -19,7 +21,9 @@ class GsonConfig {
     fun gson(): Gson {
         return GsonBuilder()
                 .enableComplexMapKeySerialization()
-                .setPrettyPrinting().create()
+                .setPrettyPrinting()
+                .registerTypeAdapter(Json::class.java, SpringfoxJsonToGsonAdapter())
+                .create()
     }
 
     @Bean

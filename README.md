@@ -20,3 +20,8 @@
 Set your working dir to $MODULE_WORKING_DIR$
 
 ![WorkingDir](doc/images/working-dir.png)
+
+## Swagger
+
+   - [UI](http://localhost:8080/swagger-ui.html)
+   - [Api (JSON)](http://localhost:8080/v2/api-docs)

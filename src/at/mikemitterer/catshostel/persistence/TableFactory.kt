@@ -4,6 +4,7 @@ import org.apache.ibatis.io.Resources
 import org.apache.ibatis.session.SqlSessionFactory
 import org.apache.ibatis.session.SqlSessionFactoryBuilder
 import org.springframework.context.annotation.Configuration
+import java.util.*
 
 /**
  * Erstellt eine SessionFactor zur Verwendung mit der Datenbank
@@ -22,9 +23,13 @@ class TableFactory {
         val resource = "mybatis-config.xml";
         val inputStream = Resources.getResourceAsStream(resource);
 
+        val props = Properties()
         val reader = Resources.getResourceAsReader(resource)
         val environment = System.getenv("MM_DB_ENV") ?: "development"
-        sqlSessionFactory = SqlSessionFactoryBuilder().build(reader /*, "development"*/)
+
+        props.setProperty("user.dir", System.getProperty("user.dir"))
+
+        sqlSessionFactory = SqlSessionFactoryBuilder().build(reader, props )
     }
 
     final inline fun <reified T> get(): T {

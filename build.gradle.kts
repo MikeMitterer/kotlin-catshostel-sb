@@ -82,6 +82,11 @@ dependencies {
 
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    
+    // implementation("org.springdoc:springdoc-openapi-core:1.1.49")
+    // implementation("org.springdoc:springdoc-openapi-ui:1.3.9")
+    // implementation("org.springdoc:springdoc-openapi-security:1.3.9")
+    // implementation("org.springdoc:springdoc-openapi-kotlin:1.3.9")
 
     implementation("io.springfox:springfox-swagger2:$swagger_version")
     implementation("io.springfox:springfox-swagger-ui:$swagger_version")
