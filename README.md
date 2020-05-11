@@ -9,6 +9,14 @@
    - iBatis (works with SQLite or Postgres-DB)
    - JWT support (mimics KeyCloak-Token)
 
+## UI
+
+   - [Chat](http://localhost:8080/ws.html)
+
+## Api
+
+   - [Ping to WS](http://localhost:8080/ping)       
+
 ## Database
 
     # cd to DB-Directory
@@ -25,3 +33,6 @@ Set your working dir to $MODULE_WORKING_DIR$
 
    - [UI](http://localhost:8080/swagger-ui.html)
    - [Api (JSON)](http://localhost:8080/v2/api-docs)
+   
+   
+      
