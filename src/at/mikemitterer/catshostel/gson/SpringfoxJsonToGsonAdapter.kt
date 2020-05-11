@@ -19,5 +19,5 @@ import java.lang.reflect.Type
  */
 class SpringfoxJsonToGsonAdapter : JsonSerializer<Json> {
     override fun serialize(json: Json, type: Type, context: JsonSerializationContext): JsonElement
-            = JsonParser().parse(json.value())
+            = JsonParser.parseString(json.value())
 }
