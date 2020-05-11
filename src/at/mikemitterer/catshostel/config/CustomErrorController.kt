@@ -27,7 +27,7 @@ class CustomErrorController(errorAttributes: ErrorAttributes) : AbstractErrorCon
         // Appropriate HTTP response code (e.g. 404 or 500) is automatically set by Spring.
         // Here we just define response body.
         val body = getErrorAttributes(
-                request, true, true, false
+                request, true /*, true, false*/
         )
 
         val status: HttpStatus = getStatus(request)
