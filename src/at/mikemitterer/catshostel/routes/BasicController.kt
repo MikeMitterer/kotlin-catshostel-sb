@@ -1,7 +1,9 @@
 package at.mikemitterer.catshostel.routes
 
-import at.mikemitterer.catshostel.ws.WSHandler
+import at.mikemitterer.catshostel.ws.BroadcastWebSocket
 import com.google.gson.Gson
+import org.joda.time.DateTime
+import org.joda.time.Seconds
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -22,7 +24,8 @@ class BasicController {
     val counter = AtomicLong()
 
     @Autowired
-    private lateinit var wsHandler: WSHandler
+    @Suppress("SpringJavaInjectionPointsAutowiringInspection")
+    private lateinit var wsServer: BroadcastWebSocket
 
     @Autowired
     private lateinit var gson: Gson
@@ -40,16 +43,23 @@ class BasicController {
     @GetMapping("/ping")
     fun pingWebSocket(@RequestParam(value = "name", defaultValue = "World") name: String) {
         val greetings = Greeting(counter.incrementAndGet(), "Hello, $name")
-        wsHandler.broadcast(gson.toJson(greetings))
+        wsServer.broadcast("server", gson.toJson(greetings))
         return
+    }
+
+    @GetMapping("/wait")
+    fun waitForSeconds(@RequestParam(value = "seconds", defaultValue = "1") seconds: Long): String {
+        val now = DateTime.now()
+        Thread.sleep(seconds * 1000)
+        val then = DateTime.now()
+
+        return "Diff between: ${then.toDateTimeISO()} and ${now.toDateTimeISO()} is: ${Seconds.secondsBetween(now, then).seconds}sec(s)"
     }
 
     @GetMapping("/exception")
     fun exception(): Greeting {
         throw IllegalArgumentException("Test-REST Exception")
     }
-
-
 }
 
 data class Greeting(val id: Long, val content: String)

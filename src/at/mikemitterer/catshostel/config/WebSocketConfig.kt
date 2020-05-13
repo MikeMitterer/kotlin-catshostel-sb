@@ -1,6 +1,6 @@
 package at.mikemitterer.catshostel.config
 
-import at.mikemitterer.catshostel.ws.WSHandler
+import at.mikemitterer.catshostel.ws.BroadcastWebSocket
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.socket.config.annotation.EnableWebSocket
@@ -15,11 +15,11 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
  */
 @Configuration
 @EnableWebSocket
-class WSConfig : WebSocketConfigurer {
+class WebSocketConfig : WebSocketConfigurer {
     @Autowired
-    private lateinit var wsHandler: WSHandler
+    private lateinit var wsServer: BroadcastWebSocket
 
     override fun registerWebSocketHandlers(webSocketHandlerRegistry: WebSocketHandlerRegistry) {
-        webSocketHandlerRegistry.addHandler(wsHandler, "/ws").setAllowedOrigins("*");
+        webSocketHandlerRegistry.addHandler(wsServer, "/ws").setAllowedOrigins("*");
     }
 }

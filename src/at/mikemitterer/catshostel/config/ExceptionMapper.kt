@@ -1,4 +1,4 @@
-package at.mikemitterer.catshostel.routes
+package at.mikemitterer.catshostel.config
 
 import org.apache.commons.lang3.exception.ExceptionUtils
 import org.springframework.http.HttpStatus

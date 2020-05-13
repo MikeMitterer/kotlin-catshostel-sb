@@ -1,6 +1,5 @@
 package at.mikemitterer.catshostel.gson
 
-
 import com.google.gson.JsonElement
 import com.google.gson.JsonParser
 import com.google.gson.JsonSerializationContext

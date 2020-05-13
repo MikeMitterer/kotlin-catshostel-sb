@@ -19,6 +19,15 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
     // @Autowired
     // private val jwtAuthenticationEntryPoint: JwtAuthenticationEntryPoint? = null
 
+    companion object {
+        private val WHITE_LIST = arrayListOf<String>(
+                "/swagger-resources/**",
+                "/swagger-ui.html",
+                "/v2/api-docs",
+                "/webjars/**"
+        )
+    }
+
     @Throws(Exception::class)
     override fun configure(httpSecurity: HttpSecurity) {
         // We don't need CSRF for this example
@@ -32,6 +41,8 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
         //
         //         // allow all others
         //         .antMatchers("/**").permitAll().anyRequest()
+        //
+        //         .antMatchers(AUTH_WHITELIST).permitAll().anyRequest()
         //
         //         .authenticated()
         //
@@ -52,4 +63,5 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
         // Add a filter to validate the tokens with every request
         httpSecurity.addFilterAfter(JWTAuthFilter(), UsernamePasswordAuthenticationFilter::class.java)
     }
+
 }

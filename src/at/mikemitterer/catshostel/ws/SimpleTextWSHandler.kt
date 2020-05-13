@@ -2,11 +2,9 @@ package at.mikemitterer.catshostel.ws
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import org.springframework.stereotype.Component
 import org.springframework.web.socket.CloseStatus
 import org.springframework.web.socket.TextMessage
 import org.springframework.web.socket.WebSocketSession
-import org.springframework.web.socket.handler.TextWebSocketHandler
 import java.io.IOException
 import java.util.concurrent.CopyOnWriteArrayList
 import java.util.function.Consumer
@@ -17,10 +15,9 @@ import java.util.function.Consumer
  *
  * @since   11.05.20, 14:41
  */
-@Component
-class WSHandler : TextWebSocketHandler() {
+class SimpleTextWSHandler : BroadcastWebSocket() {
     companion object {
-        private val logger: Logger = LoggerFactory.getLogger(WSHandler::class.java)
+        private val logger: Logger = LoggerFactory.getLogger(SimpleTextWSHandler::class.java)
     }
 
     private val sessions: MutableList<WebSocketSession> = CopyOnWriteArrayList<WebSocketSession>()
@@ -50,7 +47,14 @@ class WSHandler : TextWebSocketHandler() {
         })
     }
 
-    fun broadcast(message: String) {
+    /**
+     * Sends a [message] coming from a [sender] to all the members in the server, including all the connections per member.
+     */
+    override fun broadcast(sender: String, message: String) {
+        broadcast("[$sender] $message")
+    }
+
+    override fun broadcast(message: String) {
         sessions.forEach(Consumer<WebSocketSession> { webSocketSession: WebSocketSession ->
             try {
                 webSocketSession.sendMessage(TextMessage(message))

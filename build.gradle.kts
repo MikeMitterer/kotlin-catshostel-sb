@@ -2,8 +2,11 @@
 
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+val kotlinCoroutines_version: String by project
+
 val logback_version: String by project
 val swagger_version: String by project
+val openapi_version: String by project
 val joda_version: String by project
 val commons_lang_version: String by project
 
@@ -19,13 +22,13 @@ val auth0_version: String by project
 val jwks_version: String by project
 
 plugins {
-	id("org.springframework.boot") version "2.2.7.RELEASE"
-	id("io.spring.dependency-management") version "1.0.9.RELEASE"
+    id("org.springframework.boot") version "2.2.7.RELEASE"
+    id("io.spring.dependency-management") version "1.0.9.RELEASE"
 
     id("java")
-    
-	kotlin("jvm") version "1.3.72"
-	kotlin("plugin.spring") version "1.3.72"
+
+    kotlin("jvm") version "1.3.72"
+    kotlin("plugin.spring") version "1.3.72"
 }
 
 group = "at.mikemitterer.catshostel"
@@ -75,19 +78,40 @@ repositories {
 }
 
 dependencies {
+    // Without coroutines
     implementation("org.springframework.boot:spring-boot-starter-web")
+
+    // With coroutines!
+    // implementation("org.springframework.boot:spring-boot-starter-webflux")
+
     implementation("org.springframework.boot:spring-boot-starter-freemarker")
+    // implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+
     implementation("org.springframework.boot:spring-boot-starter-websocket")
     implementation("org.springframework.boot:spring-boot-starter-security")
 
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    
-    // implementation("org.springdoc:springdoc-openapi-core:1.1.49")
-    // implementation("org.springdoc:springdoc-openapi-ui:1.3.9")
-    // implementation("org.springdoc:springdoc-openapi-security:1.3.9")
-    // implementation("org.springdoc:springdoc-openapi-kotlin:1.3.9")
 
+    // implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
+    // implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+
+    // implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutines_version")
+    // implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:$kotlinCoroutines_version")
+
+    
+    // There seems to be a problem with GSON:
+    //      https://github.com/springdoc/springdoc-openapi/issues/624
+    // implementation("org.springdoc:springdoc-openapi-core:1.1.49")
+    // implementation("org.springdoc:springdoc-openapi-ui:${openapi_version}")
+    // implementation("org.springdoc:springdoc-openapi-webmvc-core:${openapi_version}")
+    // implementation("org.springdoc:springdoc-openapi-security:${openapi_version}")
+    // implementation("org.springdoc:springdoc-openapi-kotlin:${openapi_version}")
+
+    // They don't like GSON either
+    //      https://github.com/springfox/springfox/issues/2758
+    //      http://www.programmersought.com/article/7688804471/
+    // but at least there is an Adapter...
     implementation("io.springfox:springfox-swagger2:$swagger_version")
     implementation("io.springfox:springfox-swagger-ui:$swagger_version")
 
