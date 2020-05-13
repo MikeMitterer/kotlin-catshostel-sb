@@ -34,9 +34,4 @@ class LoginController {
         return createJWTFor(credentials.username)
     }
 
-    @GetMapping("/login")
-    fun loginViaGet(username: String, password: String): String {
-        val credentials = Credentials(username, password)
-        return createJWTFor(credentials.username)
-    }
 }
