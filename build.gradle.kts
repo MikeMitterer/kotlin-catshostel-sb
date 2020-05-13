@@ -96,6 +96,7 @@ dependencies {
     // With coroutines!
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
     // implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutines_version")
     // implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:$kotlinCoroutines_version")
@@ -112,8 +113,8 @@ dependencies {
     //      https://github.com/springfox/springfox/issues/2758
     //      http://www.programmersought.com/article/7688804471/
     // but at least there is an Adapter...
-    implementation("io.springfox:springfox-swagger2:$swagger_version")
-    implementation("io.springfox:springfox-swagger-ui:$swagger_version")
+    // implementation("io.springfox:springfox-swagger2:$swagger_version")
+    // implementation("io.springfox:springfox-swagger-ui:$swagger_version")
 
     // implementation("ch.qos.logback:logback-classic:$logback_version")
 
