@@ -79,10 +79,10 @@ repositories {
 
 dependencies {
     // Without coroutines
-    implementation("org.springframework.boot:spring-boot-starter-web")
+    // implementation("org.springframework.boot:spring-boot-starter-web")
 
     // With coroutines!
-    // implementation("org.springframework.boot:spring-boot-starter-webflux")
+    implementation("org.springframework.boot:spring-boot-starter-webflux")
 
     implementation("org.springframework.boot:spring-boot-starter-freemarker")
     // implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
@@ -93,13 +93,13 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
-    // implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
-    // implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+    // With coroutines!
+    implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 
     // implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutines_version")
     // implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:$kotlinCoroutines_version")
 
-    
     // There seems to be a problem with GSON:
     //      https://github.com/springdoc/springdoc-openapi/issues/624
     // implementation("org.springdoc:springdoc-openapi-core:1.1.49")

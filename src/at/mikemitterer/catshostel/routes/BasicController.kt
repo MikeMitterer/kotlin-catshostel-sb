@@ -2,6 +2,7 @@ package at.mikemitterer.catshostel.routes
 
 import at.mikemitterer.catshostel.ws.BroadcastWebSocket
 import com.google.gson.Gson
+import kotlinx.coroutines.delay
 import org.joda.time.DateTime
 import org.joda.time.Seconds
 import org.slf4j.Logger
@@ -48,9 +49,9 @@ class BasicController {
     }
 
     @GetMapping("/wait")
-    fun waitForSeconds(@RequestParam(value = "seconds", defaultValue = "1") seconds: Long): String {
+    suspend fun waitForSeconds(@RequestParam(value = "seconds", defaultValue = "1") seconds: Long): String {
         val now = DateTime.now()
-        Thread.sleep(seconds * 1000)
+        delay(seconds * 1000)
         val then = DateTime.now()
 
         return "Diff between: ${then.toDateTimeISO()} and ${now.toDateTimeISO()} is: ${Seconds.secondsBetween(now, then).seconds}sec(s)"
