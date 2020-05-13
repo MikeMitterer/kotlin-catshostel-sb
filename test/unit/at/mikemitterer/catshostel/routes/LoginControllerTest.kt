@@ -3,7 +3,6 @@ package at.mikemitterer.catshostel.routes
 import at.mikemitterer.catshostel.model.Credentials
 import at.mikemitterer.tdd.TestUtils.regexJWT
 import at.mikemitterer.tdd.postFormEntity
-import com.google.gson.Gson
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -28,9 +27,6 @@ internal class LoginControllerTest {
 
     @Autowired
     private lateinit var restTemplate: TestRestTemplate
-
-    @Autowired
-    private lateinit var gson: Gson
 
 
     /**

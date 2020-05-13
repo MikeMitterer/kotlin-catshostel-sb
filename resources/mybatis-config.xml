@@ -28,7 +28,7 @@
 			<dataSource type="POOLED">
 				<!-- test.docroot wird in BusinessLogicModule gesetzt -->
 				<property name="driver" 	value="${test.driver}"/>
-				<property name="url" 		value="${test.scheme}${test.db.path}/${test.db.name}"/>
+				<property name="url" 		value="${test.scheme}${user.dir}/${test.db.path}/${test.db.name}"/>
 			</dataSource>
 		</environment>	
 		<environment id="development">

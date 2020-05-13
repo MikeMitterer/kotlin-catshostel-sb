@@ -52,7 +52,7 @@ You can send a "Ping" via Get-Request:
     # Import schema (Postgres works just fine here)
     sqlite catshostel.db < sqlite-1-schema.sql
 
-Set your working dir to $MODULE_WORKING_DIR$
+Set your working dir to $MODULE_DIR$
 
 ![WorkingDir](doc/images/working-dir.png)
 

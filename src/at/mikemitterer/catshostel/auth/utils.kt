@@ -1,5 +1,7 @@
 package at.mikemitterer.catshostel.auth
 
+import at.mikemitterer.catshostel.Application
+
 /**
  * Löscht den BEGIN/END-Teil eines PEM-Zertifikates
  */
@@ -27,5 +29,6 @@ fun String.stripPEMMarker(): String {
  * How cool ist this!
  */
 fun String.asResource(): String {
-    return this.javaClass.getResource(this).readText()
+    val resource = Application::class.java.getResource(this)
+    return resource.readText()
 }
