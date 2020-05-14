@@ -1,3 +1,5 @@
+@file:Suppress("SpringJavaInjectionPointsAutowiringInspection")
+
 package at.mikemitterer.catshostel.routes
 
 import at.mikemitterer.catshostel.ws.BroadcastWebSocket
@@ -10,7 +12,6 @@ import org.joda.time.Seconds
 import org.joda.time.format.DateTimeFormat
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
@@ -22,17 +23,13 @@ import java.util.concurrent.atomic.AtomicLong
  * @since   05.05.20, 18:23
  */
 @RestController
-class BasicController {
-    var logger: Logger = LoggerFactory.getLogger(BasicController::class.java)
+class BasicController(
+        private val wsServer: BroadcastWebSocket,
+        private val gson: Gson) {
+
+    val logger: Logger = LoggerFactory.getLogger(BasicController::class.java)
 
     val counter = AtomicLong()
-
-    @Autowired
-    @Suppress("SpringJavaInjectionPointsAutowiringInspection")
-    private lateinit var wsServer: BroadcastWebSocket
-
-    @Autowired
-    private lateinit var gson: Gson
 
     @GetMapping("/greeting")
     fun greeting(@RequestParam(value = "name", defaultValue = "World") name: String): Greeting {
