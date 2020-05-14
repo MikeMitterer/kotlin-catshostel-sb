@@ -10,7 +10,7 @@ import org.springframework.http.converter.json.GsonHttpMessageConverter
 import springfox.documentation.spring.web.json.Json
 
 /**
- *
+ * Basis-Config für Gson
  *
  * @since   07.05.20, 11:37
  */

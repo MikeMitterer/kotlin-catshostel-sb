@@ -42,7 +42,13 @@ catshostel.websocket=simple
 
 You can send a "Ping" via Get-Request:
 
-   - [Ping to WS](http://localhost:8080/ping)       
+   - [Ping to WS](http://localhost:8080/ping)   
+   
+## Coroutines 
+
+Check out my [BasicController](https://github.com/MikeMitterer/kotlin-catshostel-sb/blob/master/src/at/mikemitterer/catshostel/routes/BasicController.kt)
+
+   - [Wait...](http://localhost:8080/wait?seconds=15)       
 
 ## Database
 

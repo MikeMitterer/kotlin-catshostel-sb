@@ -2,8 +2,12 @@ package at.mikemitterer.catshostel.routes
 
 import at.mikemitterer.catshostel.ws.BroadcastWebSocket
 import com.google.gson.Gson
+import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import org.joda.time.DateTime
 import org.joda.time.Seconds
+import org.joda.time.format.DateTimeFormat
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -48,12 +52,27 @@ class BasicController {
     }
 
     @GetMapping("/wait")
-    fun waitForSeconds(@RequestParam(value = "seconds", defaultValue = "1") seconds: Long): String {
+    fun waitForSeconds(@RequestParam(value = "seconds", defaultValue = "1") seconds: Long): String = runBlocking {
         val now = DateTime.now()
-        Thread.sleep(seconds * 1000)
+
+        val first = async {
+            waitAndGive(seconds, 1)
+        }
+        val second = async {
+            waitAndGive(seconds, 2)
+        }
+
+        val result1 = first.await()
+        val result2 = second.await()
+
         val then = DateTime.now()
 
-        return "Diff between: ${then.toDateTimeISO()} and ${now.toDateTimeISO()} is: ${Seconds.secondsBetween(now, then).seconds}sec(s)"
+        val formatter = DateTimeFormat.forPattern("HH:mm:ss")
+        """
+            Diff between: ${formatter.print(now)} and ${formatter.print(then)} is: 
+            ${Seconds.secondsBetween(now, then).seconds}sec(s)<br>
+            Result1: $result1 / Result2: $result2 
+        """.trimIndent()
     }
 
     @GetMapping("/exception")
@@ -63,3 +82,8 @@ class BasicController {
 }
 
 data class Greeting(val id: Long, val content: String)
+
+suspend fun waitAndGive(wait: Long, giveMe: Int): Int {
+    delay(wait * 1000)
+    return giveMe
+}
