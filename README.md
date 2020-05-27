@@ -75,14 +75,14 @@ Set your working dir to $MODULE_DIR$
    
 ## KeyCloak Settings
 
-   - ![Realm](doc/images/realm.png)   
-   - ![Clients](doc/images/clients.png)   
-   - ![Roles](doc/images/roles.png)   
-   - ![Users](doc/images/users.png)   
-   - ![User - Cat1](doc/images/user-cat1.png)   
-   - ![User - Cat1 - Roles](doc/images/user-cat1-roles.png)   
-   - ![User - Nicki](doc/images/user-nicki.png)   
-   - ![User - Nicki - Roles](doc/images/user-nicki-roles.png)   
+![Realm](doc/images/realm.png)   
+![Clients](doc/images/clients.png)   
+![Roles](doc/images/roles.png)   
+![Users](doc/images/users.png)   
+![User - Cat1](doc/images/user-cat1.png)   
+![User - Cat1 - Roles](doc/images/user-cat1-roles.png)   
+![User - Nicki](doc/images/user-nicki.png)   
+![User - Nicki - Roles](doc/images/user-nicki-roles.png)   
    
    
       
