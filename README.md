@@ -2,8 +2,8 @@
 > [KTor-Version](https://github.com/MikeMitterer/kotlin-catshostel-kt)
 > [MyBatis](https://blog.mybatis.org/)    
 > [Spring Boot - Security](https://www.javainuse.com/spring/boot-jwt)  
-> [Token-based API authentication with Spring and JWT](https://blog.softtek.com/en/token-based-api-authentication-with-spring-and-jwt)   
-> [Spring Boot + KeyCloak](https://www.baeldung.com/spring-boot-keycloak)
+> [Token-based API authentication with Spring and JWT](https://blog.softtek.com/en/token-based-api-authentication-with-spring-and-jwt)  
+> [Spring Boot + KeyCloak](https://www.baeldung.com/spring-boot-keycloak)  
 > [KeyCloak - Spring Security Adapter](https://www.keycloak.org/docs/latest/securing_apps/#_spring_security_adapter)  
 
 ## Features
@@ -17,27 +17,27 @@
     
 ## UI
 
-   - [Chat](http://localhost:8080/ws.html)
-   - [Freemarker-Template-Response](http://localhost:8080/) (StaticPages.kt)
+   - [Chat: http://localhost:8080/ws.html  
+   - Freemarker-Template-Response: http://localhost:8080/ (StaticPages.kt)  
 
 ## Swagger
 
-   - [HTML](http://localhost:8080/swagger-ui.html)
-   - [JSON](http://localhost:8080/api-docs)
+   - HTML: http://localhost:8080/swagger-ui.html
+   - JSON: http://localhost:8080/api-docs
    
 ### OpenAPI
    
-   - [JSON](http://localhost:8080/v3/api-docs)
+   - JSON: http://localhost:8080/v3/api-docs
       
 ## Api
 
-   - [Greeting](http://localhost:8080/greeting)       
-   - [Greeting (Austrian style)](http://localhost:8080/servus)       
-   - [Throws Exception](http://localhost:8080/exception)   
+   - Greeting: http://localhost:8080/greeting       
+   - Greeting (Austrian style): http://localhost:8080/servus       
+   - Throws Exception: http://localhost:8080/exception   
    
 ## WebSocket (Chat)
 
-   - [Night chat](http://localhost:8080/ws.html)   
+   - Night chat: http://localhost:8080/ws.html   
    
 Can be configured in `application.properties`
 
@@ -48,15 +48,13 @@ catshostel.websocket=simple
 
 You can send a "Ping" via Get-Request:
 
-   - Ping to WebSocket
-   http://localhost:8080/ping   
+   - Ping to WebSocket: http://localhost:8080/ping   
    
 ## Coroutines 
 
 Check out my [BasicController](https://github.com/MikeMitterer/kotlin-catshostel-sb/blob/master/src/at/mikemitterer/catshostel/routes/BasicController.kt)
 
-   - Wait...  
-   http://localhost:8080/wait?seconds=15       
+   - Wait...: http://localhost:8080/wait?seconds=15       
 
 ## Database
 
