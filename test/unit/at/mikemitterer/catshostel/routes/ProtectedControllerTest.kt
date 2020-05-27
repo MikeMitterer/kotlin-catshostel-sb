@@ -11,15 +11,20 @@ import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.boot.web.server.LocalServerPort
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpMethod
+import org.springframework.test.context.TestPropertySource
 import org.springframework.util.LinkedMultiValueMap
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 
 
 /**
+ * Because we change the setting to use.keycloak we use [at.mikemitterer.catshostel.config.WebSecurityConfig]
+ * so we can "fake" the WebToken
+ *
  * @since 06.05.20, 14:52
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestPropertySource(properties = ["use.keycloak=false"])
 internal class ProtectedControllerTest {
     @LocalServerPort
     private val port = 0
@@ -28,7 +33,7 @@ internal class ProtectedControllerTest {
     private lateinit var restTemplate: TestRestTemplate
 
     @Test
-    internal fun testGetProtectedMessageShouldFail() {
+    fun testGetProtectedMessageShouldFail() {
         val message = "Should not be shown!"
         val response = restTemplate
                 .getForEntity("http://localhost:${port}/protected/message?message=${message}",
@@ -39,7 +44,7 @@ internal class ProtectedControllerTest {
     }
 
     @Test
-    internal fun testGetProtectedMessage() {
+    fun testGetProtectedMessage() {
         val jwt = login()
 
         val message = "Spring Boot beats Ktor?"
@@ -52,11 +57,11 @@ internal class ProtectedControllerTest {
                         String::class.java
                 )
 
-        assertThat(response.body).isEqualTo("Psst: (wisper) Spring Boot beats Ktor? -> Mike")
+        assertThat(response.body).isEqualTo("Psst: (whisper) Spring Boot beats Ktor? -> Mike Mitterer")
     }
     
     @Test
-    internal fun testGetProtectedMessageExtFunction() {
+    fun testGetProtectedMessageExtFunction() {
         val jwt = login()
 
         val message = "Spring Boot beats Ktor?"
@@ -66,7 +71,7 @@ internal class ProtectedControllerTest {
                 String::class.java
         )
 
-        assertThat(response.body).isEqualTo("Psst: (wisper) Spring Boot beats Ktor? -> Mike")
+        assertThat(response.body).isEqualTo("Psst: (whisper) Spring Boot beats Ktor? -> Mike Mitterer")
     }
 
     /**

@@ -1,6 +1,7 @@
 package at.mikemitterer.catshostel.config
 
 import at.mikemitterer.catshostel.filter.JWTAuthFilter
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
@@ -15,6 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  */
 @Configuration
 @EnableWebSecurity
+@ConditionalOnProperty(value = ["use.keycloak"], havingValue = "false")
 class WebSecurityConfig : WebSecurityConfigurerAdapter() {
     // @Autowired
     // private val jwtAuthenticationEntryPoint: JwtAuthenticationEntryPoint? = null

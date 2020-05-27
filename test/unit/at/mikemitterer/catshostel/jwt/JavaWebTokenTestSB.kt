@@ -2,38 +2,31 @@ package at.mikemitterer.catshostel.jwt
 
 import at.mikemitterer.catshostel.auth.*
 import at.mikemitterer.tdd.getForAuthorizedEntity
-import at.mikemitterer.tdd.postFormEntity
-import com.auth0.jwk.UrlJwkProvider
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
-import com.auth0.jwt.interfaces.JWTVerifier
 import com.google.gson.Gson
-import com.google.gson.JsonObject
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
-import kotlinx.coroutines.runBlocking
 import org.assertj.core.api.Assertions.assertThat
 import org.joda.time.DateTime
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.boot.web.server.LocalServerPort
-import org.springframework.util.LinkedMultiValueMap
-import org.springframework.util.MultiValueMap
+import org.springframework.test.context.TestPropertySource
 import java.io.File
-import java.net.URL
-import java.security.interfaces.RSAPublicKey
 
 
 /**
- *
+ * Because we change the setting to use.keycloak we use [at.mikemitterer.catshostel.config.WebSecurityConfig]
+ * so we can "fake" the WebToken
  *
  * @since   07.05.20, 09:54
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestPropertySource(properties = ["use.keycloak=false"])
 class JavaWebTokenTestSB {
     private val logger = LoggerFactory.getLogger(JavaWebTokenTestSB::class.java.simpleName)
 
@@ -50,86 +43,6 @@ class JavaWebTokenTestSB {
     private lateinit var restTemplate: TestRestTemplate
 
     /**
-     * To succeed run KeyCloak (may be in Docker-Container)
-     */
-    @Test
-    @Disabled("KeyCloak must be running")
-    fun testKeyCloak() = runBlocking {
-        val realm = "demo"
-        val authHost = "http://localhost:9000" // KeyCloak-Server
-        val issuer = "${authHost}/auth/realms/${realm}"
-
-        val tokenUrl = "${issuer}/protocol/openid-connect/token"
-        val certsUrl = "${issuer}/protocol/openid-connect/certs"
-        val configUrl = "${issuer}/.well-known/openid-configuration"
-
-        val username = "mike"
-        val password = "mike"
-        val clientID = "vue-test-app"
-        val grantType = "password"
-
-        val parameters: MultiValueMap<String, String> = LinkedMultiValueMap<String, String>().apply {
-            add("username", username)
-            add("password", password)
-            add("client_id", clientID)
-            add("grant_type", grantType)
-        }
-
-        val response = restTemplate
-                .postFormEntity(tokenUrl, parameters, JsonObject::class.java)
-
-        val obj = response.body!!
-        val json = gson.toJson(obj)
-        logger.info(json)
-
-        val accessToken = obj.get("access_token").asString
-        val refreshToken = obj.get("refresh_token").asString
-        // val accessToken = tokenToTestExpired
-        val jwt = JWT.decode(accessToken)
-
-        //val jwkProvider = UrlJwkProvider("https://YOUR_TENANT.auth0.com/")
-        val jwkProvider = UrlJwkProvider( URL(certsUrl)).get(jwt.keyId);
-        val pubKey = jwkProvider.publicKey
-        logger.info(pubKey.toString())
-
-        val algorithm: Algorithm = Algorithm.RSA256(jwkProvider.publicKey as RSAPublicKey, null)
-
-        val verifier: JWTVerifier = JWT.require(algorithm)
-                .withIssuer(issuer)
-                .acceptExpiresAt(0)
-                .build()
-
-        verifier.verify(accessToken)
-        logger.info("OK - Key verified!")
-
-        val responseRefresh = restTemplate
-                .postFormEntity(tokenUrl, LinkedMultiValueMap<String, String>().apply {
-                    add("client_id", clientID)
-                    add("grant_type", "refresh_token")
-                    add("refresh_token", refreshToken)
-                }, JsonObject::class.java)
-
-
-        val objRefresh = gson.fromJson(responseRefresh.body, JsonObject::class.java)
-        val jsonRefresh = gson.toJson(objRefresh)
-
-        logger.info(jsonRefresh)
-
-        val accessTokenRefreshed = objRefresh.get("access_token").asString
-        verifier.verify(accessTokenRefreshed)
-
-        // Verify now with JWTS
-        val jwtParser = Jwts.parserBuilder()
-                .setSigningKey(jwkProvider.publicKey as RSAPublicKey)
-                .build()
-
-        val claims = jwtParser.parseClaimsJws(accessTokenRefreshed)
-        logger.info("Header: ${claims.header}")
-        logger.info("Body: ${gson.toJson(claims.body)}")
-        logger.info("Signature: ${claims.signature}")
-    }
-
-    /**
      * Key-Generierung und Basis für Source:
      *      https://gist.github.com/destan/b708d11bd4f403506d6d5bb5fe6a82c5
      */
@@ -141,8 +54,8 @@ class JavaWebTokenTestSB {
         val algorithm = Algorithm.RSA256(pubKey, privKey)
         assertThat(algorithm).isNotNull
 
-        val nowMillis = System.currentTimeMillis()
         val now = DateTime.now()
+        val userID = "9c292b07-0500-432d-b372-bc258c7615a4"
 
         // Reserve Claims:
         //      https://auth0.com/docs/tokens/concepts/jwt-claims#reserved-claims
@@ -159,7 +72,7 @@ class JavaWebTokenTestSB {
                 .withIssuer("mmit")
 
                 // sub
-                .withSubject("Subject?")
+                .withSubject(userID)
 
                 .withClaim("typ", "Bearer")
 
@@ -182,13 +95,14 @@ class JavaWebTokenTestSB {
     fun testCreateMitJJWT() {
         val privateKey = privateKeyFile.readText().stripPEMMarker()
         val now = DateTime.now()
+        val userID = "69c1440f-96aa-42e7-8d24-f26498db8ab7"
 
         val jwt = createJWT(mutableMapOf(
                 Claims.EXPIRATION to now.plusMinutes(5).toDate(),
                 Claims.ISSUED_AT to now.toDate(),
                 Claims.ISSUER to "mmit",
                 Claims.AUDIENCE to "account",
-                Claims.SUBJECT to "Subject",
+                Claims.SUBJECT to userID,
                 "typ" to "Bearer",
                 "realm_access" to
                         mapOf("roles" to listOf<String>(
@@ -285,7 +199,7 @@ class JavaWebTokenTestSB {
                 String::class.java
         )
 
-        assertThat(response.body).isEqualTo("Psst: (wisper) Spring Boot beats Ktor! -> Mike")
+        assertThat(response.body).isEqualTo("Psst: (whisper) Spring Boot beats Ktor! -> Mike Mitterer")
     }
 
     private val tokenToTestExpired = """

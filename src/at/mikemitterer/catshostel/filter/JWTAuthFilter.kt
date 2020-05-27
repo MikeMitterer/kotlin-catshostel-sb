@@ -3,8 +3,8 @@ package at.mikemitterer.catshostel.filter
 import at.mikemitterer.catshostel.auth.asResource
 import at.mikemitterer.catshostel.auth.stripPEMMarker
 import at.mikemitterer.catshostel.auth.toRSAKey
-import at.mikemitterer.catshostel.model.User
-import at.mikemitterer.catshostel.model.UserAuthenticationToken
+import at.mikemitterer.catshostel.model.auth.UserAuthenticationToken
+import at.mikemitterer.catshostel.model.auth.UserContext
 import io.jsonwebtoken.*
 import io.jsonwebtoken.io.IOException
 import org.springframework.http.HttpHeaders
@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse
  */
 class JWTAuthFilter : OncePerRequestFilter() {
     companion object {
-        private val BAERER_PREFIX = "Bearer "
+        private const val BAERER_PREFIX = "Bearer "
     }
 
     @Throws(ServletException::class, IOException::class)
@@ -86,9 +86,10 @@ class JWTAuthFilter : OncePerRequestFilter() {
         val familyName = checkNotNull(body.get("family_name") as String)
         val email = checkNotNull(body.get("email") as String)
 
-        val auth = UserAuthenticationToken(User(
-                firstName, familyName, email
-        ), roles.map { SimpleGrantedAuthority(it) } )
+        val authorities = roles.map { SimpleGrantedAuthority(it) }
+        val auth = UserAuthenticationToken(UserContext(
+                "$firstName $familyName", subject, authorities
+        ), authorities)
 
         SecurityContextHolder.getContext().authentication = auth
     }

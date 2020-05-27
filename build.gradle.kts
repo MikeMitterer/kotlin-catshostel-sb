@@ -20,6 +20,7 @@ val gson_version: String by project
 val coroutines_test_version: String by project
 val auth0_version: String by project
 val jwks_version: String by project
+val keycloak_version: String by project
 
 plugins {
     id("org.springframework.boot") version "2.2.7.RELEASE"
@@ -78,6 +79,8 @@ repositories {
 }
 
 dependencies {
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+    
     // Without coroutines
     implementation("org.springframework.boot:spring-boot-starter-web")
 
@@ -117,6 +120,9 @@ dependencies {
     implementation("io.springfox:springfox-swagger-ui:$swagger_version")
 
     // implementation("ch.qos.logback:logback-classic:$logback_version")
+
+    // AuthServer ------------------------------------------------------------------------------------------------------
+    implementation("org.keycloak:keycloak-spring-boot-starter:$keycloak_version")
 
     // Datenbank -------------------------------------------------------------------------------------------------------
     implementation("org.mybatis:mybatis:$mybatis_version")

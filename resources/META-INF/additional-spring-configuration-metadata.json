@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "use.keycloak",
+      "type": "java.lang.String",
+      "description": "Description for use.keycloak."
+    }
+  ]
+}

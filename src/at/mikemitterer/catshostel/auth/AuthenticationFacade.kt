@@ -1,6 +1,6 @@
 package at.mikemitterer.catshostel.auth
 
-import at.mikemitterer.catshostel.model.UserAuthenticationToken
+import at.mikemitterer.catshostel.model.auth.UserAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
 

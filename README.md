@@ -3,12 +3,17 @@
 > [MyBatis](https://blog.mybatis.org/)    
 > [Spring Boot - Security](https://www.javainuse.com/spring/boot-jwt)  
 > [Token-based API authentication with Spring and JWT](https://blog.softtek.com/en/token-based-api-authentication-with-spring-and-jwt)
+> [KeyCloak - Spring Security Adapter](https://www.keycloak.org/docs/latest/securing_apps/#_spring_security_adapter)  
 
 ## Features
 
    - iBatis (works with SQLite or Postgres-DB)
    - JWT support (mimics KeyCloak-Token)
-
+   - conditional Tests (e.g. ProtectedControllerTest)
+   - configurable WebSecurity (use.keycloak=true|false)  
+     use.keycloak=false uses WebSecurityConfig  
+     use.keycloak=true uses KeycloakConfig  
+    
 ## UI
 
    - [Chat](http://localhost:8080/ws.html)
