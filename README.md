@@ -2,7 +2,8 @@
 > [KTor-Version](https://github.com/MikeMitterer/kotlin-catshostel-kt)
 > [MyBatis](https://blog.mybatis.org/)    
 > [Spring Boot - Security](https://www.javainuse.com/spring/boot-jwt)  
-> [Token-based API authentication with Spring and JWT](https://blog.softtek.com/en/token-based-api-authentication-with-spring-and-jwt)
+> [Token-based API authentication with Spring and JWT](https://blog.softtek.com/en/token-based-api-authentication-with-spring-and-jwt)   
+> [Spring Boot + KeyCloak](https://www.baeldung.com/spring-boot-keycloak)
 > [KeyCloak - Spring Security Adapter](https://www.keycloak.org/docs/latest/securing_apps/#_spring_security_adapter)  
 
 ## Features
@@ -71,6 +72,17 @@ Set your working dir to $MODULE_DIR$
 
    - [UI](http://localhost:8080/swagger-ui.html)
    - [Api (JSON)](http://localhost:8080/v2/api-docs)
+   
+## KeyCloak Settings
+
+   - ![Realm](doc/images/realm.png)   
+   - ![Clients](doc/images/clients.png)   
+   - ![Roles](doc/images/roles.png)   
+   - ![Users](doc/images/users.png)   
+   - ![User - Cat1](doc/images/user-cat1.png)   
+   - ![User - Cat1 - Roles](doc/images/user-cat1-roles.png)   
+   - ![User - Nicki](doc/images/user-nicki.png)   
+   - ![User - Nicki - Roles](doc/images/user-nicki-roles.png)   
    
    
       
