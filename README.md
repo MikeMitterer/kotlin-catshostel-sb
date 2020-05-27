@@ -17,7 +17,7 @@
     
 ## UI
 
-   - [Chat: http://localhost:8080/ws.html  
+   - Chat: http://localhost:8080/ws.html  
    - Freemarker-Template-Response: http://localhost:8080/ (StaticPages.kt)  
 
 ## Swagger
@@ -74,6 +74,9 @@ Set your working dir to $MODULE_DIR$
    - [Api (JSON)](http://localhost:8080/v2/api-docs)
    
 ## KeyCloak Settings
+> [Spring Boot + KeyCloak](https://www.baeldung.com/spring-boot-keycloak)  
+
+My additional settings:
 
 ![Realm](doc/images/realm.png)   
 ![Clients](doc/images/clients.png)   
