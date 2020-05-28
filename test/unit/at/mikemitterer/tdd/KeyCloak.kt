@@ -31,12 +31,12 @@ class KeyCloak(private val restTemplate: TestRestTemplate) {
         val parameters: MultiValueMap<String, String> = LinkedMultiValueMap<String, String>().apply {
             add("username", username)
             add("password", password)
-            add("client_id", TestConfig.KeyCloakServer.clientID)
+            add("client_id", KeyCloakConfig.Server.clientID)
             add("grant_type", "password")
         }
 
         val response = restTemplate
-                .postFormEntity(TestConfig.KeyCloakServer.Urls.tokenUrl, parameters, JsonObject::class.java)
+                .postFormEntity(KeyCloakConfig.Server.Urls.tokenUrl, parameters, JsonObject::class.java)
 
         val obj = checkNotNull(response.body)
         return toToken(obj)
@@ -44,8 +44,8 @@ class KeyCloak(private val restTemplate: TestRestTemplate) {
 
     fun refreshToken(refreshToken: String): Tokens {
         val response = restTemplate
-                .postFormEntity(TestConfig.KeyCloakServer.Urls.tokenUrl, LinkedMultiValueMap<String, String>().apply {
-                    add("client_id",  TestConfig.KeyCloakServer.clientID)
+                .postFormEntity(KeyCloakConfig.Server.Urls.tokenUrl, LinkedMultiValueMap<String, String>().apply {
+                    add("client_id",  KeyCloakConfig.Server.clientID)
                     add("grant_type", "refresh_token")
                     add("refresh_token", refreshToken)
                 }, JsonObject::class.java)
@@ -58,7 +58,7 @@ class KeyCloak(private val restTemplate: TestRestTemplate) {
         val jwt = checkNotNull(JWT.decode(tokens.accessToken))
 
         //val jwkProvider = UrlJwkProvider("https://YOUR_TENANT.auth0.com/")
-        val jwkProvider = UrlJwkProvider( URL(TestConfig.KeyCloakServer.Urls.certsUrl)).get(jwt.keyId);
+        val jwkProvider = UrlJwkProvider( URL(KeyCloakConfig.Server.Urls.certsUrl)).get(jwt.keyId);
 
         val pubKey = jwkProvider.publicKey
         logger.info(pubKey.toString())
@@ -66,7 +66,7 @@ class KeyCloak(private val restTemplate: TestRestTemplate) {
         val algorithm: Algorithm = Algorithm.RSA256(jwkProvider.publicKey as RSAPublicKey, null)
 
         val verifier: JWTVerifier = JWT.require(algorithm)
-                .withIssuer(TestConfig.KeyCloakServer.Urls.issuer)
+                .withIssuer(KeyCloakConfig.Server.Urls.issuer)
                 .acceptExpiresAt(0)
                 .build()
 
@@ -77,7 +77,7 @@ class KeyCloak(private val restTemplate: TestRestTemplate) {
     fun verifyWithJWTS(tokens: Tokens, log: Boolean = true): Jws<Claims> {
         val jwt = JWT.decode(tokens.accessToken)
 
-        val jwkProvider = UrlJwkProvider( URL(TestConfig.KeyCloakServer.Urls.certsUrl)).get(jwt.keyId)
+        val jwkProvider = UrlJwkProvider( URL(KeyCloakConfig.Server.Urls.certsUrl)).get(jwt.keyId)
 
         val jwtParser = Jwts.parserBuilder()
                 .setSigningKey(jwkProvider.publicKey as RSAPublicKey)

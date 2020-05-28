@@ -1,13 +1,15 @@
 package at.mikemitterer.tdd
 
 /**
+ * Wird zum Generieren der Tokens in [ at.mikemitterer.tdd.KeyCloak ] benötigt
  *
+ * Eigentlich sollten die Daten mit den Daten in application.properties übereinstimmen
  *
  * @since   26.05.20, 18:07
  */
-object TestConfig {
-    object KeyCloakServer {
-        private const val realm = "MobiAdTest"
+object KeyCloakConfig {
+    object Server {
+        private const val realm = "CatsHostel"
         private const val authHost = "http://jenkins.int.mikemitterer.at:9000" // KeyCloak-Server
 
         const val clientID = "catshostel-app"
