@@ -1,20 +1,19 @@
 package at.mikemitterer.catshostel.model
 
-import com.google.gson.Gson
-
 class Cat {
-    companion object {
-        fun fromJson(json: String): Cat {
-            val gson = Gson()
-            return gson.fromJson(json, Cat::class.java)
-        }
-    }
+    // companion object {
+    //     fun fromJson(json: String): Cat {
+    //         val gson = Gson()
+    //         return gson.fromJson(json, Cat::class.java)
+    //     }
+    // }
+
     /**
      * Wird bei insert automatisch von iBatis gesetzt
      */
     var ID = 0L
 
-    var name: String? = null
+    var name: String = ""
 
     var age: Int = 0
 

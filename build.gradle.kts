@@ -23,13 +23,13 @@ val jwks_version: String by project
 val keycloak_version: String by project
 
 plugins {
-    id("org.springframework.boot") version "2.2.7.RELEASE"
-    id("io.spring.dependency-management") version "1.0.9.RELEASE"
+    id("org.springframework.boot") version "2.2.7.RELEASE"          // https://bit.ly/2OmNhdS
+    id("io.spring.dependency-management") version "1.0.11.RELEASE"  // https://bit.ly/3tcNPSx
 
     id("java")
 
-    kotlin("jvm") version "1.3.72"
-    kotlin("plugin.spring") version "1.3.72"
+    kotlin("jvm") version "1.4.31"                  // Version: https://bit.ly/3qzDy0Y
+    kotlin("plugin.spring") version "1.4.31"        // Version: https://bit.ly/3qzDy0Y
 }
 
 group = "at.mikemitterer.catshostel"
@@ -116,8 +116,8 @@ dependencies {
     //      https://github.com/springfox/springfox/issues/2758
     //      http://www.programmersought.com/article/7688804471/
     // but at least there is an Adapter...
-    implementation("io.springfox:springfox-swagger2:$swagger_version")
-    implementation("io.springfox:springfox-swagger-ui:$swagger_version")
+    // implementation("io.springfox:springfox-swagger2:$swagger_version")
+    // implementation("io.springfox:springfox-swagger-ui:$swagger_version")
 
     // implementation("ch.qos.logback:logback-classic:$logback_version")
 

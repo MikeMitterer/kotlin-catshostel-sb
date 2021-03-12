@@ -11,4 +11,4 @@ pluginManagement {
 		}
 	}
 }
-rootProject.name = "catshostelSB"
+rootProject.name = "CatsHostelSB"

@@ -17,27 +17,22 @@
     
 ## UI
 
-   - Chat: http://localhost:8080/ws.html  
-   - Freemarker-Template-Response: http://localhost:8080/ (StaticPages.kt)  
+   - [Chat](http://localhost:8080/ws.html)  
+   - [Freemarker-Template-Response](http://localhost:8080/) (StaticPages.kt)  
 
-## Swagger
 
-   - HTML: http://localhost:8080/swagger-ui.html
-   - JSON: http://localhost:8080/api-docs
-   
-### OpenAPI
-   
-   - JSON: http://localhost:8080/v3/api-docs
       
 ## Api
 
-   - Greeting: http://localhost:8080/greeting       
-   - Greeting (Austrian style): http://localhost:8080/servus       
-   - Throws Exception: http://localhost:8080/exception   
+   - [Greeting](http://localhost:8080/greeting)       
+   - [Greeting (Austrian style)](http://localhost:8080/servus)       
+   - [Throws Exception](http://localhost:8080/exception)   
    
+   - [Is alive](http://localhost:8080/api/v1)
+
 ## WebSocket (Chat)
 
-   - Night chat: http://localhost:8080/ws.html   
+   - [Night chat](http://localhost:8080/ws.html)   
    
 Can be configured in `application.properties`
 
@@ -48,13 +43,13 @@ catshostel.websocket=simple
 
 You can send a "Ping" via Get-Request:
 
-   - Ping to WebSocket: http://localhost:8080/ping   
+   - [Ping to WebSocket](http://localhost:8080/ping)   
    
 ## Coroutines 
 
 Check out my [BasicController](https://github.com/MikeMitterer/kotlin-catshostel-sb/blob/master/src/at/mikemitterer/catshostel/routes/BasicController.kt)
 
-   - Wait...: http://localhost:8080/wait?seconds=15       
+   - [Wait...](http://localhost:8080/wait?seconds=15)       
 
 ## Database
 
@@ -68,17 +63,19 @@ Set your working dir to $MODULE_DIR$
 
 ![WorkingDir](doc/images/working-dir.png)
 
-## Swagger
+### DB / Tests / API
 
-   - [UI](http://localhost:8080/swagger-ui.html)
-   - [Api (JSON)](http://localhost:8080/v2/api-docs)
-   
+   - [Show all cats](http://localhost:8080/api/v1/cat/)
+
 ## KeyCloak Settings
 > [Spring Boot + KeyCloak](https://www.baeldung.com/spring-boot-keycloak)  
 
 My additional settings:
 
+**Valid Redirect URIs:** http://localhost:8081/*
+
 ![Realm](doc/images/realm.png)   
+![Realm redirect URIs](doc/images/realm-valid-redir-url.png)   
 ![Clients](doc/images/clients.png)   
 ![Roles](doc/images/roles.png)   
 ![Users](doc/images/users.png)   
@@ -86,6 +83,72 @@ My additional settings:
 ![User - Cat1 - Roles](doc/images/user-cat1-roles.png)   
 ![User - Nicki](doc/images/user-nicki.png)   
 ![User - Nicki - Roles](doc/images/user-nicki-roles.png)   
+
+## Swagger (scheint nie wirklich zu funktionieren - wurde am 2021 03 12 gedisabled)
+
+- [HTML](http://localhost:8080/swagger-ui.html)
+- [JSON](http://localhost:8080/api-docs)
+
+Diese Variante hat am 12.3.2021 noch funktioniert:
+
+- [Api (JSON)](http://localhost:8080/v2/api-docs)
+
+Generell benötigt Swagger die Klasse `SwaggerConfig`.
+In `GsonConfig` muss noch der `SpringfoxJsonToGsonAdapter` eingebunden werden
+
+```kotlin
+    package at.mikemitterer.catshostel.config
+    
+    import org.springframework.context.annotation.Bean
+    import org.springframework.context.annotation.Configuration
+    import springfox.documentation.builders.PathSelectors
+    
+    import springfox.documentation.builders.RequestHandlerSelectors
+    
+    import springfox.documentation.spi.DocumentationType
+    
+    import springfox.documentation.spring.web.plugins.Docket
+    import springfox.documentation.swagger2.annotations.EnableSwagger2
+    
+    
+    /**
+     * Swagger 2 is enabled through the @EnableSwagger2 annotation.
+     *
+     * @since   13.05.20, 15:36
+     */
+    @Configuration
+    @EnableSwagger2
+    class SwaggerConfig {
+        @Bean
+        fun api(): Docket {
+            return Docket(DocumentationType.SWAGGER_2)
+                    .select()
+                    .apis(RequestHandlerSelectors.any())
+                    .paths(PathSelectors.any())
+                    .build()
+        }
+    }
+```
+
+Der `SpringfoxJsonToGsonAdapter` sieht so aus:
+```kotlin
+    /**
+     * Serialization-Helper for Swagger
+     *
+     * Mehr:
+     *      http://www.programmersought.com/article/7688804471/
+     *
+     * @since   11.05.20, 18:30
+     */
+    class SpringfoxJsonToGsonAdapter : JsonSerializer<Json> {
+        override fun serialize(json: Json, type: Type, context: JsonSerializationContext): JsonElement
+                = JsonParser.parseString(json.value())
+    }
+
+```
+
+### OpenAPI
+
+- [JSON](http://localhost:8080/v3/api-docs)
    
    
-      
