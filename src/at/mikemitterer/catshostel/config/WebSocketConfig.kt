@@ -12,6 +12,14 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 /**
  * WebSocket Configuration
  *
+ * Ob ein simpler Text-WebSocket oder ein Chat-Server erstellt wird, kann in den
+ * application.properties eingestellt werden
+ *
+ *      catshostel.websocket=chatserver
+ *      catshostel.websocket=simple
+ *
+ * Entschieden über die Erstellung der jeweiligen Bean wird in [Application]
+ *
  * @since   11.05.20, 14:43
  */
 @Configuration
