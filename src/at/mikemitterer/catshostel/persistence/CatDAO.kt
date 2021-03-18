@@ -11,7 +11,7 @@ interface CatDAO {
     val numberOfCats: Long
     val all: List<Cat>
     suspend fun catByID(id: Number): Cat
-    suspend fun insert(cat: Cat)
+    suspend fun upsert(cat: Cat)
     suspend fun update(cat: Cat)
     suspend fun delete(id: Number)
     suspend fun deleteAll()
@@ -20,9 +20,9 @@ interface CatDAO {
 class CatDAOImpl(
         private val sessionFactory: SqlSessionFactory) : CatDAO {
     
-    override suspend fun insert(cat: Cat) {
+    override suspend fun upsert(cat: Cat) {
         sessionFactory.openSession().use {
-            it.getMapper(CatsMapper::class.java).insert(cat)
+            it.getMapper(CatsMapper::class.java).upsert(cat)
             it.commit()
         }
     }

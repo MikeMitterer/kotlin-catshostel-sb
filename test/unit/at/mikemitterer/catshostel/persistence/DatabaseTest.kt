@@ -37,7 +37,7 @@ class DatabaseTest {
         val dao = tableFactor.get<CatDAO>()
 
         val cat = Cat(predictName("Pepples"), 99)
-        dao.insert(cat)
+        dao.upsert(cat)
 
         assertThat(dao.all.count()).isGreaterThan(0)
     }
@@ -71,6 +71,6 @@ class DatabaseTest {
 private suspend fun addNewCat(dao: CatDAO): Cat {
     val name = predictName("Pepples")
     val cat = Cat(name, 99)
-    dao.insert(cat)
+    dao.upsert(cat)
     return cat
 }

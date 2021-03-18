@@ -18,8 +18,15 @@ interface CatsMapper {
 
     // Set keyProperty as the Java variable name and keyColumn as the column name in the database.
     @Options(flushCache = Options.FlushCachePolicy.TRUE, useGeneratedKeys = true, keyProperty = "cat.ID", keyColumn = "id")
-    @Insert("INSERT INTO cats ( name, age ) VALUES (#{cat.name}, #{cat.age})")
-    fun insert(@Param("cat") cat: Cat)
+    @Insert(
+        "INSERT INTO cats ( name, age ) ",
+        "VALUES (#{cat.name}, #{cat.age})",
+        "ON CONFLICT (name) DO",
+        "UPDATE SET",
+        "name=#{cat.name},age=#{cat.age}",
+        "WHERE name = #{cat.name}"
+    )
+    fun upsert(@Param("cat") cat: Cat)
 
     @Options(flushCache = Options.FlushCachePolicy.TRUE)
     @Update("UPDATE cats SET name=#{cat.name},age=#{cat.age} WHERE id = #{cat.ID}")
