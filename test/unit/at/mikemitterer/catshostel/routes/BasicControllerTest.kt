@@ -10,9 +10,6 @@ import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.boot.web.server.LocalServerPort
 
 
-
-
-
 /**
  * @since 06.05.20, 14:52
  */

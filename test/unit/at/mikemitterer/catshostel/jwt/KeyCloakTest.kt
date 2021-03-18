@@ -43,7 +43,7 @@ class KeyCloakTest {
             keyCloak.verifyWithAuth0(tokens)
         }
         logger.info("OK - Tokens are verified with Auth0!")
-        assertThat(jwt.claims["email"]?.asString()).isEqualTo("cat1@miau.at")
+        assertThat(jwt.claims["email"]?.asString()).isEqualTo("cat1@catshostel.at")
 
         assertDoesNotThrow {
             keyCloak.verifyWithJWTS(tokens)
@@ -59,7 +59,7 @@ class KeyCloakTest {
         val claims = assertDoesNotThrow {
              keyCloak.verifyWithJWTS(tokensRefreshed)
         }
-        assertThat(claims.body["email"]).isEqualTo("cat1@miau.at")
+        assertThat(claims.body["email"]).isEqualTo("cat1@catshostel.at")
     }
 
     @Test

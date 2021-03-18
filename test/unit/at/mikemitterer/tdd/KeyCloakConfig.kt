@@ -5,13 +5,20 @@ package at.mikemitterer.tdd
  *
  * Eigentlich sollten die Daten mit den Daten in application.properties übereinstimmen
  *
- * @since   26.05.20, 18:07
+ * Für die Tests wird folgendes vorausgesetzt:
+ *      Roles: user + admin
+ *
+ *      User:
+ *          cat1, cat1@catshostel.at, PW: 12345678, user + admin
+ *          nicki, nicki@catshostel.at, PW: 12345678, user
  */
 object KeyCloakConfig {
     object Server {
+        // Realm und
         private const val realm = "CatsHostel"
         private const val authHost = "http://jenkins.int.mikemitterer.at:9000" // KeyCloak-Server
 
+        // ... Clients muss in KeyCloak angelegt sein!
         const val clientID = "catshostel-app"
 
         object Urls {

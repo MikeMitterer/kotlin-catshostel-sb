@@ -1,17 +1,11 @@
 package at.mikemitterer.catshostel.basics
 
-
-
-
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
 class COTest {
-    val myID: Int
+    val myID: Int = ++iCounter
 
-    init {
-        myID = ++iCounter
-    }
     companion object {
         var iCounter: Int = 0
     }
