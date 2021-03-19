@@ -1,0 +1,67 @@
+/** ---------------------------------------------------------------------------
+
+ Night-Chat-Styles
+
+--------------------------------------------------------------------------- */
+
+.chat div.container {
+    grid-template-columns: 1fr 300px;
+
+    grid-template-areas:
+        "head head"
+        "mainbody panright"
+        "foot foot"
+    ;
+}
+
+.chat .mainbody {
+    display: grid;
+    grid-gap: 12px;
+    grid-template-rows:  1fr auto;
+}
+
+.messages {
+    overflow-y: scroll;
+    border: 3px solid #b5b59e;
+    border-radius: 5px;
+
+    padding: 6px;
+
+    background-color: lightyellow;
+}
+
+.form label {
+    display: block;
+    color: #f7861f;
+}
+
+.form input {
+    height: 30px;
+}
+
+.form input[type=text] {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form input[type=button] {
+    float: right;
+    margin: 0 5px;
+    width: 50px;
+
+    /*border: 1px solid #d3d3d3;*/
+    border: 0;
+    border-radius: 4px;
+    background-color: #5e79cb;
+    color: white;
+    transition: background-color 500ms;
+}
+
+.form input[type=button]:hover {
+    background-color: #679af5;
+}
+
+.form .input-container {
+    margin-right: 60px;
+}

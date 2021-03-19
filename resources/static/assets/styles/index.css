@@ -1,0 +1,124 @@
+/** ---------------------------------------------------------------------------
+
+ CSS-Grid:
+    https://www.mediaevent.de/css/grid-align.html
+
+--------------------------------------------------------------------------- */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&display=swap');
+
+:root {
+    --main-background: #ffffff;
+
+    --header-color: #ffffff;
+    --header-background: #313131;
+
+    --footer-color: #ffffff;
+    --footer-background: #313131;
+
+    --panel-background: #ececec;
+}
+
+html {
+    width: 100%; /* 100% width of parent (root) element */
+    height: 100vh; /* 100% height of viewport */
+    background: rgba(0, 0, 0, 0.1); /* 10% opacity black (very light gray) */
+
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.0em; /* our root font size */
+}
+
+body {
+    margin: 0; /* content goes to edge of viewport */
+    height: 100vh; /* and spans height of viewport */
+}
+
+.header, .panel, .mainbody, .footer {
+    padding: 12px;
+}
+
+.hcenter  {
+    display: flex;
+
+    /* Horizontal */
+    justify-content: center;
+}
+
+.vcenter  {
+    display: flex;
+
+    /* Vertical */
+    align-items: center;
+}
+
+div.container {
+    min-height: 25rem; /* mainbody height never squishes < 25rem */
+    
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template-columns: 200px 1fr 200px;
+    grid-template-rows: 48px auto 30px ;
+
+    grid-template-areas:
+        "head head head"
+        "panleft mainbody panright"
+        "foot foot foot"
+    ;
+}
+
+div.header {
+    grid-area: head; /* head corresponds to name in template */
+
+    color: var(--header-color);
+    background: var(--header-background);
+}
+
+div.footer {
+    grid-area: foot;
+
+    color: var(--footer-color);
+    background: var(--footer-background);
+}
+
+div.panel { /* div elements with "panel" class */
+    background: var(--panel-background)
+}
+
+div.panel.left { /* with both "panel" and "left" class */
+    grid-area: panleft;
+}
+
+div.panel.right {
+    grid-area: panright;
+}
+
+div.mainbody {
+    grid-area: mainbody;
+
+    /*width: 30rem; !* mainbody width is fixed *!*/
+    
+    overflow: scroll;
+
+    background-color: var(--main-background);
+}
+
+@media screen and (max-width: 50rem) {
+    /* if viewport width < 50rem */
+    div.panel.left {
+        grid-column-end: left; /* left panel stops at left edge */
+    }
+
+    div.panel.right {
+        grid-column-start: right; /* right panel starts at right edge */
+    }
+
+    div.panel {
+        display: none; /* neither panel is displayed */
+    }
+
+    div.mainbody {
+        grid-column-start: left; /* mainbody starts at left edge */
+        grid-column-end: right; /* mainbody ends at right edge */
+    }
+}
