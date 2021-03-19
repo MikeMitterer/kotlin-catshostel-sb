@@ -96,6 +96,13 @@ function onSend() {
     }
 }
 
+function onPingRequest() {
+    console.log("Make Ping-Request...");
+    
+    // noinspection JSIgnoredPromiseFromCall
+    fetch("http://localhost:8080/ping")
+}
+
 /**
  * The initial code to be executed once the page has been loaded and is ready.
  */
@@ -105,12 +112,15 @@ function start() {
 
     // If we click the sendButton, let's send the message.
     document.getElementById("sendButton").onclick = onSend;
+
     // If we pressed the 'enter' key being inside the 'commandInput', send the message to improve accessibility and making it nicer.
     document.getElementById("commandInput").onkeydown = function(e) {
-        if (e.keyCode == 13) {
+        if (e.code === "Enter") {
             onSend();
         }
     };
+
+    document.getElementById("pingRequest").onclick = onPingRequest;
 }
 
 /**

@@ -6,7 +6,10 @@
     <title>Night-Chat</title>
 
     <link rel="stylesheet" href="assets/styles/index.css">
+
     <link rel="stylesheet" href="assets/styles/chat.css">
+    <link rel="stylesheet" href="assets/styles/controlpanel.css">
+
     <script type="text/javascript" src="ws.js"></script>
 </head>
 <body class="chat">
@@ -25,8 +28,13 @@
             </div>
         </div>
     </div>
-    <div class="panel right content">Right panel</div>
-    <div class="footer vcenter">Footer</div>
+    <div class="panel right content controlpanel">
+        Address must be <strong>"localhost"</strong>!
+        <input type="button" id="pingRequest" value="Make Ping-Request">
+    </div>
+    <div class="footer vcenter hright">
+        <div class="version">V 0.1</div>
+    </div>
 </div>
 </body>
 </html>

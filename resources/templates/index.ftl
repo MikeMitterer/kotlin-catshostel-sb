@@ -12,6 +12,7 @@
     <div class="header vcenter">CatsHostel</div>
     <div class="panel left">Left panel</div>
     <div class="mainbody">
+        Dynamic Data (IndexData):
         <ul>
             <#list data.items as item>
                 <li>${item}</li>
@@ -40,7 +41,9 @@
         sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
     </div>
     <div class="panel right content">Right panel</div>
-    <div class="footer vcenter">Footer</div>
+    <div class="footer vcenter hright">
+        <div class="version">V 0.1</div>
+    </div>
 </div>
 </body>
 </html>

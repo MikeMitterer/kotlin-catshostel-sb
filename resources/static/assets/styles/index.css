@@ -44,6 +44,13 @@ body {
     justify-content: center;
 }
 
+.hright  {
+    display: flex;
+
+    /* Horizontal */
+    justify-content: flex-end;
+}
+
 .vcenter  {
     display: flex;
 
@@ -51,7 +58,7 @@ body {
     align-items: center;
 }
 
-div.container {
+.container {
     min-height: 25rem; /* mainbody height never squishes < 25rem */
     
     display: grid;
@@ -67,33 +74,38 @@ div.container {
     ;
 }
 
-div.header {
+.header {
     grid-area: head; /* head corresponds to name in template */
 
     color: var(--header-color);
     background: var(--header-background);
 }
 
-div.footer {
+.footer {
     grid-area: foot;
 
     color: var(--footer-color);
     background: var(--footer-background);
 }
 
-div.panel { /* div elements with "panel" class */
+.footer .version {
+    font-size: 80%;
+}
+
+
+.panel { /* div elements with "panel" class */
     background: var(--panel-background)
 }
 
-div.panel.left { /* with both "panel" and "left" class */
+.panel.left { /* with both "panel" and "left" class */
     grid-area: panleft;
 }
 
-div.panel.right {
+.panel.right {
     grid-area: panright;
 }
 
-div.mainbody {
+.mainbody {
     grid-area: mainbody;
 
     /*width: 30rem; !* mainbody width is fixed *!*/
@@ -105,19 +117,19 @@ div.mainbody {
 
 @media screen and (max-width: 50rem) {
     /* if viewport width < 50rem */
-    div.panel.left {
+    .panel.left {
         grid-column-end: left; /* left panel stops at left edge */
     }
 
-    div.panel.right {
+    .panel.right {
         grid-column-start: right; /* right panel starts at right edge */
     }
 
-    div.panel {
+    .panel {
         display: none; /* neither panel is displayed */
     }
 
-    div.mainbody {
+    .mainbody {
         grid-column-start: left; /* mainbody starts at left edge */
         grid-column-end: right; /* mainbody ends at right edge */
     }
